@@ -1,0 +1,15 @@
+#!/bin/bash
+
+NETCDFLIB="-L/home/fernando/miniconda3/lib -lnetcdf"
+
+NETCDFINC="-I/usr/include -lnetcdff"
+
+export OMP_NUM_THREADS=6
+
+CPP1="-cpp -O3 -ffpe-trap=zero -mcmodel=medium -traditional -DLinux -openmp"
+
+gfortran $CPP1 param.f90  gradient.f90 gsw_distance.f90 write_gradients.f90 main_program.f90 -o result $NETCDFINC
+
+./result
+
+rm result
